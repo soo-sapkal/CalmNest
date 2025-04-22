@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindful Journal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        .journal-page {
+            background-image: url('https://images.unsplash.com/photo-1518655048521-f130df041f66?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        textarea {
+            min-height: 300px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-12">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-indigo-700 mb-2">Mindful Journal</h1>
+            <p class="text-lg text-gray-600">Your private space for reflection and growth</p>
+        </header>
+
+        <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden journal-page">
+            <div class="p-8 bg-white bg-opacity-90">
+                <div class="mb-6">
+                    <label for="entry-date" class="block text-gray-700 font-medium mb-2">Date</label>
+                    <input type="date" id="entry-date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+
+                <div class="mb-6">
+                    <label for="entry-title" class="block text-gray-700 font-medium mb-2">Title</label>
+                    <input type="text" id="entry-title" placeholder="How are you feeling today?" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+
+                <div class="mb-6">
+                    <label for="entry-content" class="block text-gray-700 font-medium mb-2">Your Journal Entry</label>
+                    <textarea id="entry-content" placeholder="Write your thoughts here..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <div>
+                        <button id="clear-btn" class="px-4 py-2 text-gray-600 hover:text-gray-800">
+                            <i class="fas fa-trash-alt mr-2"></i>Clear
+                        </button>
+                    </div>
+                    <div>
+                        <button id="download-btn" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                            <i class="fas fa-download mr-2"></i>Download PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center my-8">
+          <a href="Dashboard.html" class="inline-block px-4 py-2 text-sm rounded-md bg-red-600 text-white hover:bg-red-700 transition-colors font-semibold shadow-sm">
+              Back to Dashboard
+          </a>
+      </div>
+        <div id="pdf-container" class="hidden max-w-3xl mx-auto bg-white rounded-xl shadow-md p-8 mt-8">
+            <h2 id="pdf-title" class="text-2xl font-bold text-gray-800 mb-2"></h2>
+            <p id="pdf-date" class="text-gray-600 mb-6"></p>
+            <div id="pdf-content" class="text-gray-700 whitespace-pre-line"></div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize jsPDF
+        const { jsPDF } = window.jspdf;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set today's date as default
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('entry-date').value = today;
+
+            // Clear button functionality
+            document.getElementById('clear-btn').addEventListener('click', function() {
+                document.getElementById('entry-title').value = '';
+                document.getElementById('entry-content').value = '';
+            });
+
+            // Download PDF button functionality
+            document.getElementById('download-btn').addEventListener('click', function() {
+                const title = document.getElementById('entry-title').value || 'Untitled Journal Entry';
+                const date = document.getElementById('entry-date').value || today;
+                const content = document.getElementById('entry-content').value || 'No content written yet.';
+
+                // Update the PDF preview container
+                document.getElementById('pdf-title').textContent = title;
+                document.getElementById('pdf-date').textContent = new Date(date).toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                document.getElementById('pdf-content').textContent = content;
+                
+                // Create PDF
+                const pdf = new jsPDF();
+                
+                // Add title
+                pdf.setFontSize(20);
+                pdf.text(title, 15, 20);
+                
+                // Add date
+                pdf.setFontSize(12);
+                pdf.setTextColor(100);
+                pdf.text(new Date(date).toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                }), 15, 30);
+                
+                // Add content
+                pdf.setFontSize(14);
+                pdf.setTextColor(0);
+                const lines = pdf.splitTextToSize(content, 180);
+                pdf.text(lines, 15, 40);
+                
+                // Save the PDF
+                pdf.save(`Journal_Entry_${date}.pdf`);
+            });
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

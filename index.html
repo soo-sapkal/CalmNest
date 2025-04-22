@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalmNest | Your Mental Health Companion</title>
+    <meta name="description" content="Personalized mental health assessment and recovery platform with tests, resources and guided flows">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {"50":"#f0f9ff","100":"#e0f2fe","200":"#bae6fd","300":"#7dd3fc","400":"#38bdf8","500":"#0ea5e9","600":"#0284c7","700":"#0369a1","800":"#075985","900":"#0c4a6e"},
+                        secondary: {"50":"#f8fafc","100":"#f1f5f9","200":"#e2e8f0","300":"#cbd5e1","400":"#94a3b8","500":"#64748b","600":"#475569","700":"#334155","800":"#1e293b","900":"#0f172a"},
+                        accent: {"50":"#fdf2f8","100":"#fce7f3","200":"#fbcfe8","300":"#f9a8d4","400":"#f472b6","500":"#ec4899","600":"#db2777","700":"#be185d","800":"#9d174d","900":"#831843"}
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in',
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, rgba(14,165,233,0.1) 0%, rgba(236,72,153,0.1) 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-800 bg-white">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="index.html">
+                    <div class="w-12 h-12 rounded-full bg-primary-500 flex items-center justify-center text-white font-bold text-xl mr-3">
+                        CN
+                    </div>
+                </a>
+                    <h1 class="text-2xl font-bold text-primary-800">CalmNest</h1>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#features" class="text-gray-600 hover:text-primary-600 transition-colors">Features</a>
+                    <a href="#assessments" class="text-gray-600 hover:text-primary-600 transition-colors">Assessments</a>
+                    <a href="#resources" class="text-gray-600 hover:text-primary-600 transition-colors">Resources</a>
+                    <a href="#about" class="text-gray-600 hover:text-primary-600 transition-colors">About</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <a href="login.html" class="px-4 py-2 rounded-lg text-primary-600 border border-primary-600 hover:bg-primary-50 transition-colors">Login</a>
+                    <a href="signup.html" class="px-4 py-2 rounded-lg bg-primary-600 text-white hover:bg-primary-700 transition-colors">Sign Up</a>
+                </div>
+                
+                <button class="md:hidden text-gray-600 focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg py-20">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-12 md:mb-0 animate-fade-in">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                        Your Personalized <span class="text-primary-600">Mental Health</span> Companion
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Take scientifically validated assessments, get personalized recommendations, and access curated resources to improve your mental wellbeing.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="signup.html" class="px-6 py-3 rounded-lg bg-primary-600 text-white hover:bg-primary-700 transition-colors text-center font-medium shadow-md hover:shadow-lg">
+                            Get Started
+                        </a>
+                        <a href="#how-it-works" class="px-6 py-3 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors text-center font-medium">
+                            How It Works
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center animate-float" >
+                    <!-- <img src="https://picsum.photos/600/500?random=1" alt="Happy person meditating" class="rounded-lg shadow-xl" loading="lazy"> -->
+                    <img src="main.png" alt="Happy person meditating" class="rounded-lg shadow-xl" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Your Personalized Mental Health Journey</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    We provide a complete ecosystem to support your mental wellbeing at every step
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-md card-hover transition-all duration-300 hover:border-primary-500 border border-transparent">
+                    <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-brain text-primary-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Smart Assessments</h3>
+                    <p class="text-gray-600 mb-4">
+                        Take research validated tests to understand your mental health status and get personalized insights.
+                    </p>
+                    <a href="#assessments" class="text-primary-600 font-medium inline-flex items-center">
+                        Learn more <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-md card-hover transition-all duration-300 hover:border-primary-500 border border-transparent">
+                    <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-line text-primary-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Personalized Dashboard</h3>
+                    <p class="text-gray-600 mb-4">
+                        Track your progress with visual metrics and follow your customized recovery flow.
+                    </p>
+                    <a href="login.html" class="text-primary-600 font-medium inline-flex items-center">
+                        Learn more <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-md card-hover transition-all duration-300 hover:border-primary-500 border border-transparent">
+                    <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-book-open text-primary-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Curated Resources</h3>
+                    <p class="text-gray-600 mb-4">
+                        Access free books, video lectures, and exercises tailored to your needs.
+                    </p>
+                    <a href="#resources" class="text-primary-600 font-medium inline-flex items-center">
+                        Learn more <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">How CalmNest Works</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    A simple 3-step process to start your mental health journey
+                </p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <!-- Step 1 -->
+                <div class="relative md:w-1/3 mb-12 md:mb-0 text-center px-8">
+                    <div class="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-primary-600 font-bold text-2xl">1</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Take the Assessment</h3>
+                    <p class="text-gray-600">
+                        Complete our scientifically validated mental health questionnaire (takes about 10 minutes).
+                    </p>
+                    <div class="absolute top-0 right-0 h-full w-px bg-gray-200 hidden md:block"></div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="relative md:w-1/3 mb-12 md:mb-0 text-center px-8">
+                    <div class="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-primary-600 font-bold text-2xl">2</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Get Your Results</h3>
+                    <p class="text-gray-600">
+                        Receive personalized insights about your mental health with actionable recommendations.
+                    </p>
+                    <div class="absolute top-0 right-0 h-full w-px bg-gray-200 hidden md:block"></div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="md:w-1/3 text-center px-8">
+                    <div class="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-primary-600 font-bold text-2xl">3</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Start Your Journey</h3>
+                    <p class="text-gray-600">
+                        Follow your personalized recovery plan with daily exercises and resources.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Assessments Section -->
+    <section id="assessments" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Mental Health Assessments</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Research validated tests to help identify potential mental health concerns
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Assessment 1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <img src="https://picsum.photos/600/400?random=2" alt="Depression assessment" class="w-full h-48 object-cover" loading="lazy">
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 bg-accent-100 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-sad-tear text-accent-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Depression Screening</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Assess symptoms of depression based on PHQ-9 criteria with personalized recommendations.
+                        </p>
+                        <a href="login.html" class="text-primary-600 font-medium inline-flex items-center">
+                            Take Assessment <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Assessment 2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <img src="https://picsum.photos/600/400?random=3" alt="ADHD assessment" class="w-full h-48 object-cover" loading="lazy">
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 bg-accent-100 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-bolt text-accent-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">ADHD Screening</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Evaluate attention deficit symptoms with our ADHD assessment.
+                        </p>
+                        <a href="login.html" class="text-primary-600 font-medium inline-flex items-center">
+                            Take Assessment <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Assessment 3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <img src="https://picsum.photos/600/400?random=4" alt="Anxiety assessment" class="w-full h-48 object-cover" loading="lazy">
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 bg-accent-100 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-heartbeat text-accent-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Anxiety Screening</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Measure anxiety levels using GAD-7 criteria with actionable coping strategies.
+                        </p>
+                        <a href="login.html" class="text-primary-600 font-medium inline-flex items-center">
+                            Take Assessment <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Free Mental Health Resources</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Curated collection of books, videos and exercises to support your journey
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Resource 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover">
+                    <div class="relative pb-[56.25%]">
+                        <img src="mindful.jpg" alt="Mindfulness book" class="absolute h-full w-full object-cover" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-4">
+                            <span class="bg-primary-600 text-white text-xs px-2 py-1 rounded">Book</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">The Mindfulness Solution</h3>
+                        <p class="text-gray-600 text-sm mb-3">Practical guide to daily mindfulness practices</p>
+                        <a href="https://drive.google.com/file/d/1nKX_-EFB8FPWJDdbG5j7cq8_h0iQtU0r/view?usp=drive_link" target="_blank" class="text-primary-600 text-sm font-medium inline-flex items-center">
+                            Download <i class="fas fa-download ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Resource 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover">
+                    <div class="relative pb-[56.25%]">
+                        <img src="cbt.jpg" alt="CBT techniques" class="absolute h-full w-full object-cover" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-4">
+                            <span class="bg-accent-600 text-white text-xs px-2 py-1 rounded">Video</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">CBT Techniques Explained</h3>
+                        <p class="text-gray-600 text-sm mb-3">5-minute lecture on cognitive behavioral therapy</p>
+                        <a href="https://youtu.be/ZdyOwZ4_RnI?si=vYN_4KrtJSLPiPmM" target="_blank" class="text-primary-600 text-sm font-medium inline-flex items-center">
+                            Watch Now <i class="fas fa-play ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Resource 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover">
+                    <div class="relative pb-[56.25%]">
+                        <img src="medi.jpg" alt="Meditation guide" class="absolute h-full w-full object-cover" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-4">
+                            <span class="bg-primary-600 text-white text-xs px-2 py-1 rounded">Video</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">5-Minute Meditation Guide</h3>
+                        <p class="text-gray-600 text-sm mb-3">Quick meditation exercises for busy people</p>
+                        <a href="https://youtu.be/inpok4MKVLM?si=x-Sghlen_0Fihhxs" target="_blank" class="text-primary-600 text-sm font-medium inline-flex items-center">
+                            Watch Now <i class="fas fa-play-circle ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Resource 4 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden card-hover">
+                    <div class="relative pb-[56.25%]">
+                        <img src="adhd.jpg" alt="ADHD strategies" class="absolute h-full w-full object-cover" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-4">
+                            <span class="bg-accent-600 text-white text-xs px-2 py-1 rounded">Guide</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">ADHD Management Strategies</h3>
+                        <p class="text-gray-600 text-sm mb-3">Practical tips for improving focus and organization</p>
+                        <a href="#" class="text-primary-600 text-sm font-medium inline-flex items-center">
+                            Download <i class="fas fa-download ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="login.html" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 shadow-sm transition-colors">
+                    Browse All Resources <i class="fas fa-chevron-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-12 lg:mb-0 lg:pr-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Your Personalized Dashboard</h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        After completing your assessment, you'll get access to a customized dashboard that tracks your progress and guides you through your recovery journey.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="w-6 h-6 rounded-full bg-primary-100 flex items-center justify-center">
+                                    <i class="fas fa-check text-primary-600 text-xs"></i>
+                                </div>
+                            </div>
+                            <p class="ml-3 text-gray-700">
+                                <span class="font-medium">Daily progress tracking</span> with motivational milestones
+                            </p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="w-6 h-6 rounded-full bg-primary-100 flex items-center justify-center">
+                                    <i class="fas fa-check text-primary-600 text-xs"></i>
+                                </div>
+                            </div>
+                            <p class="ml-3 text-gray-700">
+                                <span class="font-medium">Personalized recovery flow</span> with step-by-step guidance
+                            </p>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="w-6 h-6 rounded-full bg-primary-100 flex items-center justify-center">
+                                    <i class="fas fa-check text-primary-600 text-xs"></i>
+                                </div>
+                            </div>
+                            <p class="ml-3 text-gray-700">
+                                <span class="font-medium">Resource recommendations</span> tailored to your needs
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/2 relative">
+                    <div class="relative rounded-xl shadow-2xl overflow-hidden">
+                        <img src="https://picsum.photos/800/600?random=9" alt="Dashboard preview" class="w-full" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                    </div>
+                    <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-accent-100 rounded-full opacity-20 animate-pulse-slow"></div>
+                    <div class="absolute -top-6 -right-6 w-24 h-24 bg-primary-100 rounded-full opacity-20 animate-pulse-slow animation-delay-1000"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 gradient-bg">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Ready to Start Your Mental Health Journey?</h2>
+            <p class="text-lg text-gray-700 max-w-2xl mx-auto mb-8">
+                Join thousands of people who have taken control of their mental wellbeing with CalmNest.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="signup.html" class="px-8 py-4 rounded-lg bg-primary-600 text-white hover:bg-primary-700 transition-colors font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-transform">
+                    Get Started for Free
+                </a>
+                <a href="login.html" class="px-8 py-4 rounded-lg border-2 border-primary-600 text-primary-600 hover:bg-primary-50 transition-colors font-bold">
+                    I Already Have an Account
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 rounded-full bg-primary-600 flex items-center justify-center text-white font-bold text-xl mr-3">
+                            MC
+                        </div>
+                        <h3 class="text-xl font-bold">CalmNest</h3>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        Your trusted companion for mental health and wellbeing.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Company</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Our Team</a></li>
+                        
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Resources</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Community</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Guides</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Research</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Legal</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
+                    © 2025 CalmNest. All rights reserved.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-gray-400 text-sm transition-colors">Privacy</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-400 text-sm transition-colors">Terms</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-400 text-sm transition-colors">Sitemap</a>
+                </div>
+            </div>
+        </div>
+        <p class="text-xs text-secondary-400" style="margin-left: 75px; margin-top: 10px;">
+        All the Content on this page is subject to deep research but not in any sense medically certified.
+        </p>
+    </footer>
+
+    <script>
+        // Navigation data
+        const navItems = [
+            { id: 1, label: "Home", href: "#" },
+            { id: 2, label: "Features", href: "#features" },
+            { id: 3, label: "Assessments", href: "#assessments" },
+            { id: 4, label: "Resources", href: "#resources" },
+            { id: 5, label: "About", href: "#about" }
+        ];
+
+        // Assessment data
+        const assessments = [
+            {
+                id: 1,
+                title: "Depression Screening",
+                description: "Assess symptoms of depression based on PHQ-9 criteria with personalized recommendations.",
+                icon: "sad-tear",
+                image: "https://picsum.photos/600/400?random=2"
+            },
+            {
+                id: 2,
+                title: "ADHD Screening",
+                description: "Evaluate attention deficit symptoms with our clinically validated ADHD assessment.",
+                icon: "bolt",
+                image: "https://picsum.photos/600/400?random=3"
+            },
+            {
+                id: 3,
+                title: "Anxiety Screening",
+                description: "Measure anxiety levels using GAD-7 criteria with actionable coping strategies.",
+                icon: "heartbeat",
+                image: "https://picsum.photos/600/400?random=4"
+            }
+        ];
+
+        // Resource data
+        const resources = [
+            {
+                id: 1,
+                title: "The Mindfulness Solution",
+                description: "Practical guide to daily mindfulness practices",
+                type: "Book",
+                image: "https://picsum.photos/400/300?random=5"
+            },
+            {
+                id: 2,
+                title: "CBT Techniques Explained",
+                description: "45-minute lecture on cognitive behavioral therapy",
+                type: "Video",
+                image: "https://picsum.photos/400/300?random=6"
+            },
+            {
+                id: 3,
+                title: "5-Minute Meditation Guide",
+                description: "Quick meditation exercises for busy people",
+                type: "Exercise",
+                image: "https://picsum.photos/400/300?random=7"
+            },
+            {
+                id: 4,
+                title: "ADHD Management Strategies",
+                description: "Practical tips for improving focus and organization",
+                type: "Guide",
+                image: "https://picsum.photos/400/300?random=8"
+            }
+        ];
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile menu toggle functionality
+        const mobileMenuButton = document.querySelector('.md\\:hidden');
+        const mobileMenu = document.createElement('div');
+        mobileMenu.className = 'hidden fixed inset-0 bg-white z-50 p-6';
+        mobileMenu.innerHTML = `
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-primary-600 flex items-center justify-center text-white font-bold text-xl mr-3">
+                        MC
+                    </div>
+                    <h3 class="text-xl font-bold">CalmNest</h3>
+                </div>
+                <button class="text-gray-600 focus:outline-none close-mobile-menu">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <nav class="flex flex-col space-y-6">
+                ${navItems.map(item => `
+                    <a href="${item.href}" class="text-xl text-gray-800 hover:text-primary-600 transition-colors">${item.label}</a>
+                `).join('')}
+            </nav>
+            <div class="absolute bottom-8 left-6 right-6">
+                <div class="flex flex-col space-y-4">
+                    <a href="/login" class="px-6 py-3 rounded-lg text-primary-600 border border-primary-600 hover:bg-primary-50 transition-colors text-center">Login</a>
+                    <a href="/signup" class="px-6 py-3 rounded-lg bg-primary-600 text-white hover:bg-primary-700 transition-colors text-center">Sign Up</a>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(mobileMenu);
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        });
+
+        mobileMenu.querySelector('.close-mobile-menu').addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            document.body.style.overflow = '';
+        });
+
+        // Animate elements when they come into view
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.animate-fade-in, .animate-float');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Set initial state for animated elements
+        document.querySelectorAll('.animate-fade-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        });
+
+        document.querySelectorAll('.animate-float').forEach(el => {
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        });
+
+        // Add scroll event listener
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Resources</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .resource-card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        .resource-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .active-tab {
+            border-bottom: 3px solid #4f46e5;
+            color: #4f46e5;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-12">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-indigo-700 mb-4">Resources</h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Curated resources to support your mental health journey</p>
+        </header>
+
+        <div class="flex justify-center mb-8 border-b border-gray-200">
+            <button onclick="showTab('videos')" class="tab-btn px-6 py-3 text-lg font-medium active-tab">Videos</button>
+            <button onclick="showTab('articles')" class="tab-btn px-6 py-3 text-lg font-medium">Articles</button>
+        </div>
+
+        <div id="videos" class="tab-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Video cards will be inserted here by JavaScript -->
+        </div>
+
+        <div id="articles" class="tab-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Article cards will be inserted here by JavaScript -->
+        </div>
+
+        
+    </div>
+
+    <script>
+        // Resource data
+        const videoResources = [
+            {
+                title: "5 Tips to Improve your Mental Health",
+                source: "Sadhguru",
+                url: "https://youtu.be/wOGqlVqyvCM?si=xbKV8zO3L4yoK1p-",
+                thumbnail: "https://i.ytimg.com/vi/wOGqlVqyvCM/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLCI20A5q8zI3uoIVvR4HkcnetB9Tw",
+                duration: "8:00",
+                description: "Learn practical techniques to cope with stress and anxiety in daily life."
+            },
+            {
+                title: "The power of vulnerability",
+                source: "TED Talk",
+                url: "https://www.youtube.com/watch?v=iCvmsMzlF7o",
+                thumbnail: "https://i.ytimg.com/vi/iCvmsMzlF7o/maxresdefault.jpg",
+                duration: "20:19",
+                description: "Brené Brown's groundbreaking talk on connection, courage, and vulnerability."
+            },
+            {
+                title: "Mindfulness meditation guide",
+                source: "Mindful",
+                url: "https://www.youtube.com/watch?v=ssss7V1_eyA",
+                thumbnail: "https://i.ytimg.com/vi/ssss7V1_eyA/maxresdefault.jpg",
+                duration: "10:00",
+                description: "A beginner-friendly guided meditation to cultivate mindfulness."
+            },
+            {
+                title: "Mental Health for All by Involving All",
+                source: "TED",
+                url: "https://youtu.be/yzm4gpAKrBk?si=YNto7BULh9ujCa2v",
+                thumbnail: "https://i.ytimg.com/vi/yzm4gpAKrBk/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLAOQxAbvAuhAAoqVPSYpUKyyVivLQ",
+                duration: "12:23",
+                description: "A powerful talk on the importance of mental health awareness and community support."
+            }
+        ];
+
+        const articleResources = [
+            {
+                title: "10 tips for better mental health",
+                source: "Mental Health Foundation",
+                url: "https://www.mentalhealth.org.uk/explore-mental-health/publications/10-tips-maintain-your-mental-health",
+                icon: "fas fa-book-open",
+                readTime: "5 min",
+                description: "Simple, evidence-based strategies to improve your mental wellbeing."
+            },
+            {
+                title: "Understanding depression",
+                source: "Mayo Clinic",
+                url: "https://www.mayoclinic.org/diseases-conditions/depression/symptoms-causes/syc-20356007",
+                icon: "fas fa-file-alt",
+                readTime: "8 min",
+                description: "Comprehensive guide to symptoms, causes, and treatments for depression."
+            },
+            {
+                title: "Building resilience",
+                source: "American Psychological Association",
+                url: "https://www.apa.org/topics/resilience",
+                icon: "fas fa-shield-alt",
+                readTime: "7 min",
+                description: "Learn how to develop psychological resilience to cope with life's challenges."
+            }
+        ];
+
+        // Render resources
+        function renderResources() {
+            const videosContainer = document.getElementById('videos');
+            const articlesContainer = document.getElementById('articles');
+
+            // Render videos
+            videoResources.forEach(video => {
+                videosContainer.innerHTML += `
+                    <div class="resource-card bg-white rounded-xl overflow-hidden shadow-md">
+                        <a href="${video.url}" target="_blank" class="block">
+                            <div class="relative">
+                                <img src="${video.thumbnail}" alt="${video.title}" class="w-full h-48 object-cover">
+                                <div class="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white px-2 py-1 rounded text-sm">
+                                    ${video.duration}
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">${video.title}</h3>
+                                <p class="text-indigo-600 mb-3">${video.source}</p>
+                                <p class="text-gray-600">${video.description}</p>
+                                <div class="mt-4 flex items-center text-indigo-600">
+                                    <i class="fas fa-play-circle mr-2"></i>
+                                    <span>Watch now</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                `;
+            });
+
+            // Render articles
+            articleResources.forEach(article => {
+                articlesContainer.innerHTML += `
+                    <div class="resource-card bg-white rounded-xl overflow-hidden shadow-md">
+                        <a href="${article.url}" target="_blank" class="block">
+                            <div class="p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="bg-indigo-100 p-3 rounded-full mr-4">
+                                        <i class="${article.icon} text-indigo-600 text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-indigo-600">${article.source}</p>
+                                        <p class="text-gray-500 text-sm">${article.readTime} read</p>
+                                    </div>
+                                </div>
+                                <h3 class="text-xl font-semibold text-gray-800 mb-3">${article.title}</h3>
+                                <p class="text-gray-600 mb-4">${article.description}</p>
+                                <div class="flex items-center text-indigo-600">
+                                    <i class="fas fa-external-link-alt mr-2"></i>
+                                    <span>Read article</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                `;
+            });
+        }
+
+        // Tab functionality
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.remove('hidden');
+
+            // Update active tab button
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active-tab');
+            });
+            event.currentTarget.classList.add('active-tab');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderResources();
+        });
+    </script>
+</body>
+</html>

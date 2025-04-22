@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CalmNest - Mental Health Quiz</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+    }
+    .progress-bar {
+      transition: width 0.5s ease-in-out;
+    }
+    .option:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    .result-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      border-radius: 20px;
+    }
+  </style>
+</head>
+<body class="text-gray-800">
+  <div class="container mx-auto px-4 py-12 max-w-4xl">
+    <!-- Header -->
+    <header class="text-center mb-12">
+      <div class="flex justify-center mb-6">
+        <div class="w-20 h-20 rounded-full bg-indigo-100 flex items-center justify-center pulse">
+          <i class="fas fa-brain text-indigo-500 text-3xl"></i>
+        </div>
+      </div>
+      <h1 class="text-4xl font-bold text-indigo-700 mb-3">CalmNest</h1>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Take our mental health assessment to gain insights into your emotional wellbeing and discover resources tailored for you.
+      </p>
+    </header>
+
+    <!-- Quiz Container -->
+    <div id="quiz-container" class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300">
+      <!-- Progress Bar -->
+      <div class="bg-gray-200 h-3">
+        <div id="progress" class="progress-bar bg-gradient-to-r from-indigo-400 to-purple-500 h-3" style="width: 0%"></div>
+      </div>
+
+      <!-- Quiz Content -->
+      <div class="p-8">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="text-center">
+          <h2 class="text-2xl font-semibold text-gray-800 mb-4">Welcome to Your Mental Health Check</h2>
+          <p class="text-gray-600 mb-6">This 10-question assessment will help you reflect on your mental and emotional state. Your answers are completely anonymous.</p>
+          
+          <!-- NAME INPUT -->
+          <input type="text" id="user-name" placeholder="Enter your name" class="border border-gray-300 rounded-lg p-3 w-full max-w-xs mx-auto mb-6"/>
+
+          <div class="flex flex-col space-y-4 max-w-xs mx-auto">
+            <button id="start-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+              Begin Assessment
+            </button>
+            <button class="text-indigo-600 hover:text-indigo-800 font-medium py-2 transition duration-200">
+              <i class="fas fa-info-circle mr-2"></i> How this works
+            </button>
+          </div>
+        </div>
+
+        <!-- Question Screen -->
+        <div id="question-screen" class="hidden">
+          <div class="mb-8">
+            <div class="flex justify-between items-center mb-2">
+              <span id="question-number" class="text-sm font-medium text-indigo-600">Question 1 of 10</span>
+              <span id="question-timer" class="text-sm font-medium text-gray-500">Take your time</span>
+            </div>
+            <h3 id="question-text" class="text-xl font-semibold text-gray-800 mb-6"></h3>
+            <div id="options" class="space-y-4"></div>
+          </div>
+          <div class="flex justify-between">
+            <button id="prev-btn" class="text-indigo-600 hover:text-indigo-800 font-medium py-2 px-4 rounded-lg transition duration-200 hidden">
+              <i class="fas fa-arrow-left mr-2"></i> Previous
+            </button>
+            <button id="next-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg transition duration-300 ml-auto">
+              Next <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden text-center">
+          <div class="result-card p-8 mb-8">
+            <div class="w-24 h-24 rounded-full bg-indigo-100 flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-chart-pie text-indigo-500 text-4xl"></i>
+            </div>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-3">Your Results</h2>
+            <div id="result-message" class="text-gray-600 mb-6"></div>
+            <div id="result-score" class="text-5xl font-bold text-indigo-600 mb-6"></div>
+            <div id="result-description" class="text-gray-600 max-w-2xl mx-auto"></div>
+          </div>
+          <button id="restart-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-8 rounded-lg transition duration-300 inline-flex items-center">
+            <i class="fas fa-redo mr-2"></i> Take Again
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center mt-16 text-gray-500 text-sm">
+      <p>This is not a diagnostic tool. If you're in crisis, please contact a mental health professional.</p>
+      <p class="mt-2">© 2023 CalmNest. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const questions = [
+        { question: "How often have you felt little interest or pleasure in doing things?", options: ["Not at all", "Several days", "More than half the days", "Nearly every day"] },
+        { question: "How often have you felt down, depressed, or hopeless?", options: ["Not at all", "Several days", "More than half the days", "Nearly every day"] },
+        { question: "How often have you had trouble falling or staying asleep, or sleeping too much?", options: ["Not at all", "Several days", "More than half the days", "Nearly every day"] },
+        { question: "How often have you felt tired or had little energy?", options: ["Not at all", "Several days", "More than half the days", "Nearly every day"] },
+        { question: "How often have you had poor appetite or overeaten?", options: ["Not at all", "Several days", "More than half the days", "Nearly every day"] },
+        { question: "How often have you felt bad about yourself — or that you are a failure or have let yourself or your family down?", options: ["Not at all", "Several days", "More than half the days", "Nearly every day"] },
+        { question: "How often have you had trouble concentrating on things, such as reading the newspaper or watching television?", options: ["Not at all", "Several days", "More than half the days", "Nearly every day"] },
+        { question: "How often have you been moving or speaking so slowly that other people could have noticed? Or the opposite — being so fidgety or restless that you have been moving around a lot more than usual?", options: ["Not at all", "Several days", "More than half the days", "Nearly every day"] },
+        { question: "How often have you had thoughts that you would be better off dead or of hurting yourself in some way?", options: ["Not at all", "Several days", "More than half the days", "Nearly every day"] },
+        { question: "How would you rate your overall stress level recently?", options: ["No stress", "Mild stress", "Moderate stress", "Severe stress"] }
+      ];
+
+      const welcomeScreen = document.getElementById('welcome-screen');
+      const questionScreen = document.getElementById('question-screen');
+      const resultsScreen = document.getElementById('results-screen');
+      const questionText = document.getElementById('question-text');
+      const optionsContainer = document.getElementById('options');
+      const questionNumber = document.getElementById('question-number');
+      const progressBar = document.getElementById('progress');
+      const nextBtn = document.getElementById('next-btn');
+      const prevBtn = document.getElementById('prev-btn');
+      const startBtn = document.getElementById('start-btn');
+      const restartBtn = document.getElementById('restart-btn');
+      const resultMessage = document.getElementById('result-message');
+      const resultScore = document.getElementById('result-score');
+      const resultDescription = document.getElementById('result-description');
+      const userNameInput = document.getElementById('user-name');
+
+      let currentQuestion = 0;
+      let answers = [];
+      let score = 0;
+
+      startBtn.addEventListener('click', startQuiz);
+      restartBtn.addEventListener('click', startQuiz);
+
+      function startQuiz() {
+        currentQuestion = 0;
+        answers = [];
+        score = 0;
+        welcomeScreen.classList.add('hidden');
+        resultsScreen.classList.add('hidden');
+        questionScreen.classList.remove('hidden');
+        loadQuestion();
+      }
+
+      function loadQuestion() {
+        const q = questions[currentQuestion];
+        questionText.textContent = q.question;
+        questionNumber.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+        progressBar.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+
+        optionsContainer.innerHTML = '';
+        q.options.forEach((option, index) => {
+          const btn = document.createElement('button');
+          btn.className = 'option w-full text-left p-4 border border-gray-200 rounded-lg hover:border-indigo-300 transition duration-200';
+          btn.textContent = option;
+          btn.addEventListener('click', () => selectOption(index));
+          optionsContainer.appendChild(btn);
+        });
+
+        prevBtn.classList.toggle('hidden', currentQuestion === 0);
+        nextBtn.innerHTML = currentQuestion === questions.length - 1 ? 'See Results <i class="fas fa-chart-line ml-2"></i>' : 'Next <i class="fas fa-arrow-right ml-2"></i>';
+      }
+
+      function selectOption(index) {
+        document.querySelectorAll('.option').forEach(btn => btn.classList.remove('bg-indigo-50', 'border-indigo-400', 'text-indigo-700'));
+        const selected = document.querySelectorAll('.option')[index];
+        selected.classList.add('bg-indigo-50', 'border-indigo-400', 'text-indigo-700');
+        answers[currentQuestion] = index;
+      }
+
+      nextBtn.addEventListener('click', () => {
+        if (answers[currentQuestion] === undefined) {
+          alert('Please select an option before continuing.');
+          return;
+        }
+        if (currentQuestion < questions.length - 1) {
+          currentQuestion++;
+          loadQuestion();
+        } else {
+          showResults();
+        }
+      });
+
+      prevBtn.addEventListener('click', () => {
+        if (currentQuestion > 0) {
+          currentQuestion--;
+          loadQuestion();
+        }
+      });
+
+      function downloadJSON(data, filename) {
+        const jsonStr = JSON.stringify(data, null, 2);
+        const blob = new Blob([jsonStr], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      function showResults() {
+        score = answers.reduce((total, val) => total + val, 0);
+        const maxScore = questions.length * 3;
+        const percentage = Math.round((score / maxScore) * 100);
+
+        let message = "", description = "";
+        if (percentage < 25) {
+          message = "Your results suggest minimal concerns";
+          description = "You're generally doing well emotionally.";
+        } else if (percentage < 50) {
+          message = "Your results suggest mild concerns";
+          description = "You're experiencing some emotional difficulties.";
+        } else if (percentage < 75) {
+          message = "Your results suggest moderate concerns";
+          description = "You're experiencing significant emotional distress.";
+        } else {
+          message = "Your results suggest severe concerns";
+          description = "You're experiencing considerable emotional distress.";
+        }
+
+        resultMessage.textContent = message;
+        resultScore.textContent = `${percentage}%`;
+        resultDescription.textContent = description;
+
+        const userData = {
+          name: userNameInput.value || "Anonymous",
+          answers: answers.map((ansIndex, i) => ({
+            question: questions[i].question,
+            selectedOption: questions[i].options[ansIndex]
+          })),
+          score: percentage,
+          summary: message
+        };
+
+        downloadJSON(userData, `${userData.name.replace(/\s+/g, '_')}_results.json`);
+
+        questionScreen.classList.add('hidden');
+        resultsScreen.classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
